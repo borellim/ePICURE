@@ -3,17 +3,7 @@ import numpy as np
 from interfaces.shape import Shape
 from interfaces.position import Position
 from interfaces.equation_of_motion import EquationOfMotion
-
-
-class OptimizationRoutine(object):
-    """
-    An abstract interface to an optimization routine:
-    specializations of this class will implement the method
-    "optimize" to perform the actual optimization, and will
-    store all necessary parameters for its correct execution.
-    """
-    def __init__(object):
-        pass
+from interfaces.optimization_routines import *
 
 
 class Optimization(object):
@@ -24,15 +14,19 @@ class Optimization(object):
     order to obtain a Shape that satisfies the ConstraintEquation
     and minimizes the CostFunction
     """
+    # Static dictionary of optimization routines
+    all_routines = { "dakota" : OptimizationRoutineDakota,
+                     "scipy"  : OptimizationRoutineScipy,
+                   }
+
     def __init__(self):
         pass
 
-    def set_optimization_routine(self):
-        # self.optimization_routine = ...
-        # self.optimization_routine = ...
+    def set_optimization_routine(self,routine_name,routine_parameters):
+        self.optimization_routine = all_routines[routine_name](routine_parameters)
         pass
 
     def optimize(self):
         # Call optimization routine
-        optimal_shape = Shape() #......
+        optimal_shape = self.optimization_routine.optimize()
         return optimal_shape
