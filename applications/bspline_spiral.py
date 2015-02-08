@@ -27,7 +27,7 @@ knots = r_[p*[0], linspace(0,1,n), p*[1]]
 vs = BsplineVectorSpace(p, knots)
 
 # Least square parameter points
-t = linspace(0,1,n_ls) 
+t = linspace(0,1,n_ls)
 
 # Least square points of the curve
 F = array([cx(t), cy(t), cz(t)])
@@ -37,7 +37,7 @@ M = interpolation_matrix(vs, t)
 
 # Control points and curve
 CP = lstsq(M, F.T)[0]
-CP2 = least_square_by_points(vs, F, t)
+CP2 = least_square_by_points(vs, F.T, t)
 print np.abs(CP - CP2)
 curve = vs.element(CP)
 

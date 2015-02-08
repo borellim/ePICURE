@@ -30,7 +30,7 @@ knots[-p::] = 1
 vs = BsplineVectorSpace(p, knots)
 
 # Least square parameter points
-t = linspace(0,1,n_ls) 
+t = linspace(0,1,n_ls)
 
 # Least square points of the curve
 F = array([cx(t), cy(t), cz(t)])
@@ -52,15 +52,15 @@ new_arky_fixed = ArcLengthParametrizer(vs, CP_al_lf)
 new_arky_fixed.reparametrize()
 new_arky = ArcLengthParametrizer(vs, CP_al)
 new_arky.reparametrize()
-plt.plot(arky.points_s[:,0],arky.points_s[:,1],label='original')
-plt.plot(new_arky.points_s[:,0],new_arky.points_s[:,1],label='reparametrized')
-plt.plot(new_arky_fixed.points_s[:,0],new_arky_fixed.points_s[:,1],label='reparametrized_lf')
+plt.plot(np.array(arky.points_s[:,0]),np.array(arky.points_s[:,1]),label='original')
+plt.plot(np.array(new_arky.points_s[:,0]),np.array(new_arky.points_s[:,1]),label='reparametrized')
+plt.plot(np.array(new_arky_fixed.points_s[:,0]),np.array(new_arky_fixed.points_s[:,1]),label='reparametrized_lf')
 plt.legend()
 plt.savefig('BSplinearclength.png')
 plt.close()
 plt.close()
 #print new_arky_fixed.points_s[-1,1], arky.points_s[-1,1]
-print CP.shape, type(CP) 
+print CP.shape, type(CP)
 print CP_al.shape, type(CP_al)
 # Approximated curve at points
 C = curve(t)

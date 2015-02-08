@@ -1,7 +1,7 @@
 import numpy as np
 import math
-import scipy.special as sp 
-from scipy.interpolate import lagrange 
+import scipy.special as sp
+from scipy.interpolate import lagrange
 from numpy.polynomial.chebyshev import chebgauss
 import sys
 from utilities import *
@@ -50,8 +50,8 @@ arky = ArcLengthParametrizer(vsl, control_points_3d)
 new_control_points_3d = arky.reparametrize()
 new_arky = ArcLengthParametrizer(vsl, new_control_points_3d)
 new_arky.reparametrize()
-plt.plot(arky.points_s[:,0],arky.points_s[:,1],label='original')
-plt.plot(new_arky.points_s[:,0],new_arky.points_s[:,1],label='reparametrized')
+plt.plot(np.array(arky.points_s[:,0]),np.array(arky.points_s[:,1]),label='original')
+plt.plot(np.array(new_arky.points_s[:,0]),np.array(new_arky.points_s[:,1]),label='reparametrized')
 plt.legend()
 plt.savefig('new_arclength.png')
 plt.close()
