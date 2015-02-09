@@ -1,0 +1,37 @@
+# Dakota Input File: dakota_min_test.in
+#
+# Finds the minimum of the function defined in dakota_min_test.py (a parabola).
+
+environment
+  # graphics
+  tabular_graphics_data
+    tabular_graphics_file = 'dakota_min_test.dat'
+
+method
+  conmin_frcg
+  max_iterations = 100
+  convergence_tolerance = 1e-4
+
+model
+  single
+
+variables
+  continuous_design = 1
+    initial_point    -1.2
+    lower_bounds     -100.0
+    upper_bounds      100.0
+    descriptors       'x1'
+
+interface,
+  python
+    numpy
+    analysis_driver = 'dakota_min_test:parabola'
+
+responses
+  objective_functions = 1
+  analytic_gradients
+#  numerical_gradients
+#    method_source dakota
+#    interval_type forward
+#    fd_gradient_step_size = 1.e-5
+  no_hessians

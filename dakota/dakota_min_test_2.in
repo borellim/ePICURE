@@ -1,0 +1,40 @@
+# Dakota Input File: dakota_min_test.in
+#
+# Finds the minimum of the function defined in dakota_min_test_2.py
+# (a paraboloid) with one linear contraint.
+
+environment
+  # graphics
+  tabular_graphics_data
+    tabular_graphics_file = 'dakota_min_test.dat'
+
+method
+  conmin_frcg
+  max_iterations = 1000
+  convergence_tolerance = 1e-12
+  linear_equality_constraint_matrix = 1.0 -1.0
+  linear_equality_targets = -2.0
+
+model
+  single
+
+variables
+  continuous_design = 2
+    initial_point    -1.2    -2.0
+    lower_bounds     -100.0  -100.0
+    upper_bounds      100.0   100.0
+    descriptors       'x1'    'x2'
+
+interface,
+  python
+    numpy
+    analysis_driver = 'dakota_min_test_2:paraboloid'
+
+responses
+  objective_functions = 1
+  analytic_gradients
+#  numerical_gradients
+#    method_source dakota
+#    interval_type forward
+#    fd_gradient_step_size = 1.e-5
+  no_hessians
