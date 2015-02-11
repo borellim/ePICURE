@@ -1,0 +1,47 @@
+# Dakota Input File: dakota_min_test.in
+#
+# Finds the minimum of the function defined in dakota_min_test_2.py
+# (a paraboloid) with one linear contraint.
+
+environment
+  # graphics
+  tabular_graphics_data
+    tabular_graphics_file = 'dakota_bspline_test.dat'
+
+method
+  #conmin_frcg
+  conmin_mfd
+  #optpp_cg
+  max_iterations = 1000
+  convergence_tolerance = 1e-18
+  linear_equality_constraint_matrix = 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+                                      0 0 0 0 0 0 1 0 0 0 0 0 0 0
+                                      0 0 0 0 0 0 0 1 0 0 0 0 0 0
+                                      0 0 0 0 0 0 0 0 0 0 0 0 0 1
+  linear_equality_targets = 1 0 0 1
+  linear_inequality_scale_types = 'none'
+
+model
+  single
+
+variables
+  continuous_design = 14
+    initial_point      1  0.8 0.7 0.5 0.3 0.2  0
+                       0  0.2 0.4 0.6 0.7 0.8  1
+    lower_bounds      14 * -1.0
+    upper_bounds      14 * +2.0
+    # descriptors     ...
+
+interface,
+  python
+    numpy
+    analysis_driver = 'bspline_test_dakota:dakota_entry_point'
+
+responses
+  objective_functions = 1
+#  analytic_gradients
+  numerical_gradients
+    method_source dakota
+    interval_type forward
+    fd_gradient_step_size = 1.e-5
+  no_hessians
